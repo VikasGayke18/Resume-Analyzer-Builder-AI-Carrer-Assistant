@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analyzer | Career AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <a href="/dashboard">Home</a>
+        <a href="/analyze">Analyzer</a>
+        <a href="/builder">Builder</a>
+        <a href="/chatbot">Assistant</a>
+        <a href="/interview">Mock Interview</a>
+        <a href="/my_dashboard">My Dashboard</a>
+        <a href="/logout">Logout</a>
+    </nav>
+
+    <div class="container">
+        <h2 style="color: #00d4ff;">Resume Scan</h2>
+        <p style="opacity: 0.7;">Smart ATS analysis with structure + content insights.</p>
+
+        <!-- FORM -->
+        <form method="POST" enctype="multipart/form-data" class="card">
+            <label>Upload Resume (PDF)</label>
+            <input type="file" name="resume" accept=".pdf" required>
+
+            <label>Target Job Role</label>
+            <select name="role">
+                <option value="Software Developer">Software Developer</option>
+                <option value="Data Analyst">Data Analyst</option>
+                <option value="AI Engineer">AI Engineer</option>
+                <option value="Web Developer">Web Developer</option>
+                <option value="Cloud Engineer">Cloud Engineer</option>
+                <option value="Cyber Security">Cyber Security</option>
+                <option value="DevOps Engineer">DevOps Engineer</option>
+            </select>
+
+            <button type="submit" class="btn">Run Analysis</button>
+        </form>
+
+        {% if results %}
+        <div class="card" style="margin-top: 40px; border-left: 5px solid #00d4ff;">
+
+            <h2>Analysis Results</h2>
+            <p>Role: <strong>{{ results.role }}</strong></p>
+
+            <h3>ATS Score: {{ results.score }}%</h3>
+
+            <div class="two-col">
+
+                <div>
+                    <h4 style="color: #00ff88;">✓ Keywords Found</h4>
+                    <p>
+                        {{ results.found | join(', ') if results.found else 'None found' }}
+                    </p>
+                </div>
+
+                <div>
+                    <h4 style="color: #ff4d4d;">✗ Missing Keywords</h4>
+                    <p>
+                       {{ results.missing | join(', ') if results.missing else 'None' }}
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="two-col" style="margin-top:20px;">
+
+                <div>
+                    <h4>📄 Sections Found</h4>
+                    <p>{{ results.sections_found | join(', ') }}</p>
+                </div>
+
+                <div>
+                    <h4>⚠ Missing Sections</h4>
+                    <p>{{ results.missing_sections | join(', ') }}</p>
+                </div>
+            
+            </div>
+
+        </div>
+
+        <div style="margin-top:20px;">
+            <h4>🚀 Action Words</h4>
+            <p>
+                {{ results.action_words_used | join(', ') if results.action_words_used else 'None used' }}
+            </p>
+        </div>
+
+        <div style="margin-top:20px;">
+            <h4>💡 Suggestions</h4>
+            {% if results.suggestions and results.suggestions|length > 0 %}
+            <ul>
+                {% for s in results.suggestions %}
+                <li>{{ s }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+                <p>No suggestions available</p>
+            {% endif %}
+        </div>
+
+        <!-- AI ASSISTANT -->
+        <div class="card" style="margin-top: 30px;">
+            <h3 style="color:#00d4ff;">🤖 Ask AI Assistant</h3>
+
+            <div id="ai-chat-box" style="max-height:200px; overflow-y:auto; margin-bottom:10px;"></div>
+            <div style="display:flex; gap:10px; margin-top:10px;">
+                <input type="text" id="ai-input" placeholder="Ask about your resume..." style="flex:1;">
+                <button onclick="askAI()" class="btn">Ask</button>
+            </div>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    <!-- 🔥 JAVASCRIPT (ADD HERE ONLY) -->
+    <script>
+    function askAI() {
+
+        let msg = document.getElementById("ai-input").value;
+
+        if (!msg) return;
+
+        fetch("/analyzer_chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({message: msg})
+        })
+        .then(res => res.json())
+        .then(data => {
+
+            let box = document.getElementById("ai-chat-box");
+
+            box.innerHTML += "<p><b>You:</b> " + msg + "</p>";
+            box.innerHTML += "<p><b>AI:</b> " + data.reply + "</p>";
+
+            document.getElementById("ai-input").value = "";
+        });
+    }
+    </script>
+
+</body>
+</html>

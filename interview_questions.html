@@ -1,0 +1,28 @@
+<div class="container">
+
+<h2>Answer the Questions</h2>
+
+<form action="/submit_interview" method="POST">
+
+<input type="hidden" name="role" value="{{role}}">
+<input type="hidden" name="level" value="{{level}}">
+
+{% for q in questions %}
+
+<div class="card">
+
+<p>{{q}}</p>
+
+<input type="hidden" name="q{{loop.index}}" value="{{q}}">
+
+<textarea name="a{{loop.index}}" required></textarea>
+
+</div>
+
+{% endfor %}
+
+<button class="btn">Submit Interview</button>
+
+</form>
+
+</div>

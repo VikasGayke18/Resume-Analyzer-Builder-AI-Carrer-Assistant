@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Career AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav>
+        <a href="/dashboard">Home</a>
+        <a href="/analyze">Analyzer</a>
+        <a href="/builder">Builder</a>
+        <a href="/chatbot">Assistant</a>
+        <a href="/interview">Mock Interview</a>
+        <a href="/my_dashboard">My Dashboard</a>
+        <a href="/logout">Logout</a>
+    </nav>
+
+    <div class="container">
+        <h2 style="color: var(--primary);">My Profile</h2>
+        <div class="card">
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Account Created:</strong> {{ user.created_at.strftime('%d %b %Y, %I:%M %p') }}</p>
+            <p><strong>User ID:</strong> {{ user.id }}</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Mock Interview | Career AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav>
+        <a href="/dashboard">Home</a>
+        <a href="/analyze">Analyzer</a>
+        <a href="/builder">Builder</a>
+        <a href="/chatbot">Assistant</a>
+        <a href="/interview">Mock Interview</a>
+        <a href="/my_dashboard">My Dashboard</a>
+        <a href="/logout">Logout</a>
+    </nav>
+
+    <div class="container">
+        <h2 style="color: var(--primary);">AI Mock Interview</h2>
+        <p>This section is separate from chatbot. It asks interview questions with voice support and saves your performance.</p>
+
+        <div class="card">
+            <label>Select Role</label>
+            <select id="role">
+                <option value="Software Developer">Software Developer</option>
+                <option value="Data Analyst">Data Analyst</option>
+                <option value="AI Engineer">AI Engineer</option>
+                <option value="Web Developer">Web Developer</option>
+                <option value="Cloud Engineer">Cloud Engineer</option>
+                <option value="Cyber Security">Cyber Security</option>
+                <option value="DevOps Engineer">DevOps Engineer</option>
+            </select>
+
+            <label>Select Level</label>
+            <select id="level">
+                <option value="basic">Basic</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+            </select>
+
+            <button class="btn" onclick="startInterview()">Start Interview</button>
+        </div>
+
+        <div class="card" id="interviewArea" style="display:none;">
+            <h3 id="questionCounter">Question 1</h3>
+            <p id="questionText">Question will appear here...</p>
+
+            <textarea id="answerBox" placeholder="Type your answer here..."></textarea>
+
+            <div class="action-row">
+                <button class="btn" onclick="startListening()">🎙️ Speak Answer</button>
+                <button class="btn" onclick="speakQuestion()">🔊 Repeat Question</button>
+                <button class="btn" onclick="submitAnswer()">Submit Answer</button>
+            </div>
+        </div>
+
+        <div class="card" id="resultArea" style="display:none;">
+            <h3>Interview Result</h3>
+            <p id="finalResult"></p>
+            <div id="expectedAnswers"></div>
+            <button class="btn" onclick="location.reload()">Take Another Interview</button>
+        </div>
+    </div>
+
+    <script src="/static/interview.js"></script>
+</body>
+</html>

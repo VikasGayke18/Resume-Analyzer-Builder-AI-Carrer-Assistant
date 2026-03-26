@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career AI | Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <a href="/dashboard">Home</a>
+        <a href="/analyze">Analyzer</a>
+        <a href="/builder">Builder</a>
+        <a href="/chatbot">Assistant</a>
+        <a href="/interview">Mock Interview</a>
+        <a href="/my_dashboard">My Dashboard</a>
+        <a href="/logout">Logout</a>
+    </nav>
+
+    <div class="container" style="text-align: center; margin-top: 80px;">
+        <h1 style="font-size: 3.5rem; margin-bottom: 10px; letter-spacing: -2px;">
+            CAREER <span style="color: #00d4ff; text-shadow: 0 0 20px rgba(0,212,255,0.5);">AI</span>
+        </h1>
+        <p style="font-size: 1.2rem; opacity: 0.6; margin-bottom: 15px;">The Next-Gen ATS Optimization Suite</p>
+        <p style="opacity: 0.8;">Welcome, <strong>{{ username }}</strong></p>
+        
+        <div class="dashboard-grid">
+            <div class="card clickable-card" onclick="location.href='/analyze'">
+                <h2 style="color: #00d4ff;">🔍 Analyze</h2>
+                <p>Upload your PDF and get a real-time ATS compatibility score.</p>
+                <span style="font-size: 0.8rem; color: #7000ff;">GO TO ANALYZER →</span>
+            </div>
+            
+            <div class="card clickable-card" onclick="location.href='/builder'">
+                <h2 style="color: #00d4ff;">🛠️ Build</h2>
+                <p>Generate a professional, high-score resume PDF in minutes.</p>
+                <span style="font-size: 0.8rem; color: #7000ff;">START BUILDING →</span>
+            </div>
+
+            <div class="card clickable-card" onclick="location.href='/chatbot'">
+                <h2 style="color: #00d4ff;">🤖 Chat</h2>
+                <p>Talk to our AI to get personalized tips and missing skill alerts.</p>
+                <span style="font-size: 0.8rem; color: #7000ff;">TALK TO COACH →</span>
+            </div>
+
+            <div class="card clickable-card" onclick="location.href='/interview'">
+                <h2 style="color: #00d4ff;">🎤 Interview</h2>
+                <p>Practice your interview with voice support and performance tracking.</p>
+                <span style="font-size: 0.8rem; color: #7000ff;">START INTERVIEW →</span>
+            </div>
+
+            <div class="card clickable-card" onclick="location.href='/my_dashboard'">
+                <h2 style="color: #00d4ff;">📊 My Dashboard</h2>
+                <p>See your history, interview scores, and profile details.</p>
+                <span style="font-size: 0.8rem; color: #7000ff;">VIEW DASHBOARD →</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

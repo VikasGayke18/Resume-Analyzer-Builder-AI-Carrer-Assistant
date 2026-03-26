@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder | Career AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav>
+    <a href="/dashboard">Home</a>
+    <a href="/analyze">Analyzer</a>
+    <a href="/builder">Builder</a>
+    <a href="/chatbot">Assistant</a>
+    <a href="/interview">Mock Interview</a>
+    <a href="/my_dashboard">My Dashboard</a>
+    <a href="/logout">Logout</a>
+</nav>
+
+<div class="container">
+    <h2 style="color: #00d4ff;">🛠️ Interactive Resume Builder</h2>
+    <p style="opacity: 0.7;">Fill in your details. Edit anytime.</p>
+
+    <form action="/preview" method="POST" enctype="multipart/form-data">
+
+        <!-- 🔥 IDENTITY -->
+        <div class="card" style="border-left: 4px solid #7000ff;">
+            <h4 style="color: #7000ff;">Identity</h4>
+
+            <input type="file" name="photo" accept="image/png, image/jpeg">
+
+            <input type="text" name="name" placeholder="Full Name"
+                value="{{ data.get('name','') }}" required>
+
+            <input type="text" name="role" placeholder="Target Role"
+                value="{{ data.get('role','') }}">
+
+            <input type="email" name="email" placeholder="Email"
+                value="{{ data.get('email','') }}" required>
+
+            <input type="text" name="phone" placeholder="Phone"
+                value="{{ data.get('phone','') }}">
+        </div>
+
+        <!-- 🔥 LINKS -->
+        <div class="card">
+            <h4 style="color:#00d4ff;">Online Presence</h4>
+
+            <input type="text" name="linkedin" placeholder="LinkedIn URL"
+                value="{{ data.get('linkedin','') }}">
+
+            <input type="text" name="github" placeholder="GitHub URL"
+                value="{{ data.get('github','') }}">
+
+            <textarea name="summary" rows="4"
+                placeholder="Professional Summary">{{ data.get('summary','') }}</textarea>
+        </div>
+
+        <!-- 🔥 SKILLS -->
+        <div class="card">
+            <h4 style="color:#00d4ff;">Skills & Experience</h4>
+
+            <textarea name="skills" rows="3"
+                placeholder="Skills (comma separated)">{{ data.get('skills','') }}</textarea>
+
+            <textarea name="experience" rows="5"
+                placeholder="Experience (comma separated)">{{ data.get('experience','') }}</textarea>
+        </div>
+
+        <!-- 🔥 PROJECTS -->
+        <div class="card">
+            <h4 style="color:#00d4ff;">Projects</h4>
+
+            {% for i in range(1,4) %}
+            <div style="margin-bottom:15px;">
+
+                <input type="text" name="p{{i}}_title"
+                    placeholder="Project {{i}} Title"
+                    value="{{ data.get('p' ~ i ~ '_title','') }}">
+
+                <input type="text" name="p{{i}}_date"
+                    placeholder="Date"
+                    value="{{ data.get('p' ~ i ~ '_date','') }}">
+
+                <textarea name="p{{i}}_info" rows="2"
+                    placeholder="Project Description (comma separated)">{{ data.get('p' ~ i ~ '_info','') }}</textarea>
+
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- 🔥 EDUCATION -->
+        <div class="card">
+            <h4 style="color:#7000ff;">Education</h4>
+
+            <textarea name="education"
+                placeholder="Education">{{ data.get('education','') }}</textarea>
+
+            <input type="text" name="certs"
+                placeholder="Certifications"
+                value="{{ data.get('certs','') }}">
+        </div>
+
+        <!-- 🔥 BUTTONS -->
+        <div class="action-row">
+            <button type="submit" class="btn">Preview Resume</button>
+            <button type="reset" class="btn danger-btn">Clear</button>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

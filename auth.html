@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Career AI | Login</title>
+</head>
+<body class="auth-page">
+    <div class="card auth-card">
+        <h2 id="title" style="color: var(--primary);">Welcome to Career AI</h2>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-msg">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        <form id="authForm" action="/login" method="POST">
+            <input type="text" name="username" placeholder="Username" required style="margin-bottom: 15px;">
+            <input type="password" name="password" placeholder="Password" required style="margin-bottom: 15px;">
+            <button type="submit" class="btn" id="btnText">Login</button>
+        </form>
+
+        <p id="toggleText" style="cursor:pointer; color: var(--text); margin-top:15px; font-size: 0.9rem;" onclick="toggleAuth()">
+            Don't have an account? <strong>Sign up here.</strong>
+        </p>
+    </div>
+
+    <script>
+        function toggleAuth() {
+            const form = document.getElementById('authForm');
+            const title = document.getElementById('title');
+            const btn = document.getElementById('btnText');
+            const toggleText = document.getElementById('toggleText');
+
+            if(form.action.endsWith('/login')) {
+                form.action = '/signup';
+                title.innerText = 'Create Account';
+                btn.innerText = 'Sign Up';
+                toggleText.innerHTML = 'Already have an account? <strong>Login here.</strong>';
+            } else {
+                form.action = '/login';
+                title.innerText = 'Welcome to Career AI';
+                btn.innerText = 'Login';
+                toggleText.innerHTML = 'Dont have an account? <strong>Sign up here.</strong>';
+            }
+        }
+    </script>
+</body>
+</html>

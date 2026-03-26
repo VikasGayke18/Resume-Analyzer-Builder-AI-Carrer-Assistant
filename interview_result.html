@@ -1,0 +1,19 @@
+<div class="container">
+
+<h2>Your Score: {{score}}%</h2>
+
+{% for r in results %}
+
+<div class="card">
+
+<p><b>Question:</b> {{r.question}}</p>
+
+<p><b>Your Answer:</b> {{r.answer}}</p>
+
+<p><b>Expected Answer:</b> {{r.expected}}</p>
+
+</div>
+
+{% endfor %}
+
+</div>
