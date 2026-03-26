@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Career Assistant</title>
+
+<style>
+
+:root {
+    --primary: #00D9FF;
+    --secondary: #1A1A2E;
+    --accent: #7B2EFF;
+    --bg: #0A0B10;
+    --glass: rgba(255, 255, 255, 0.05);
+    --text: #E0E0E0;
+    --danger: #9D4BFF;
+}
+body {
+    background: radial-gradient(circle at top, var(--secondary), var(--bg));
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    line-height: 1.6;
+}
+.container {
+    width: 60%;
+    margin: auto;
+    margin-top: 35px;
+}
+
+.chat-box {
+    background: var(--glass);
+    padding: 15px;
+    height: 400px;
+    overflow-y: auto;
+    border-radius: 10px;
+}
+
+.user {
+    text-align: right;
+    margin: 10px;
+}
+
+.bot {
+    text-align: left;
+    margin: 10px;
+    color: #E0E0E0;
+}
+
+input {
+    width: 75%;
+    padding: 10px;
+}
+
+button {
+    padding: 10px;
+    background: #00d4ff;
+    border: none;
+    cursor: pointer;
+}
+
+/*  NAVBAR CONTAINER */
+.navbar {
+    display: flex;
+    justify-content: center;   /*  CENTER NAV */
+    top:0;
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid var(--glass);
+    gap: 18px;
+    background:rgba(10, 11, 16, 0.8) ;
+    z-index: 1000;
+    flex-wrap: wrap;
+    backdrop-filter: blur(10px);
+    position: sticky;
+
+}
+
+/*  NAV LINKS WRAPPER */
+.nav-links {
+    display: flex;
+    gap: 18px;                 /*  SPACE BETWEEN ITEMS */
+    background: rgba(10, 11, 16, 0.8);
+    font-family: 'Inter', sans-serif;
+    padding: 1px; 
+    flex-wrap: wrap;
+
+    border-radius: 30px; 
+    backdrop-filter: blur(10px);
+}
+
+/*  NAV LINKS */
+.nav-links a {
+    color: var(--text);             /*  WHITE TEXT */
+    text-decoration: none;
+    letter-spacing: 1px;
+    gap: 18px;
+    padding: 1px; 
+    padding-top: 0%;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 0.85rem;
+    transition: 0.3s;
+}
+
+/*  HOVER EFFECT */
+.nav-links a:hover {
+    color: #00d4ff;
+    transform: translateY(-2px);
+}
+
+/*  LOGOUT SPECIAL STYLE */
+.logout {
+    color: #ff4d4d;
+}
+
+.logout:hover {
+    color: #ff0000;
+}
+
+</style>
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+    <div class="nav-links">
+        <a href="/dashboard">Home</a>
+        <a href="/analyze">Analyzer</a>
+        <a href="/builder">Builder</a>
+        <a href="/chatbot">Assistant</a>
+        <a href="/interview">Mock Interview</a>
+        <a href="/my_dashboard">Dashboard</a>
+        <a href="/logout" class="logout">Logout</a>
+    </div>
+</nav>
+
+
+<div class="container">
+    <h2>🤖 AI Career Assistant</h2>
+
+    <div class="chat-box" id="chatBox">
+        <div class="bot">Hello! Ask me anything about resume, skills, or jobs.</div>
+    </div>
+
+    <br>
+
+    <input type="text" id="userInput" placeholder="Ask something...">
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+function sendMessage() {
+    let input = document.getElementById("userInput");
+    let message = input.value;
+
+    if (message.trim() === "") return;
+
+    let chatBox = document.getElementById("chatBox");
+
+    // Show user message
+    chatBox.innerHTML += `<div class="user"><b>You:</b> ${message}</div>`;
+
+    fetch("/chatbot_api", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({message: message})
+    })
+    .then(res => res.json())
+    .then(data => {
+        chatBox.innerHTML += `<div class="bot"><b>AI:</b> ${data.reply}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    });
+
+    input.value = "";
+}
+</script>
+
+</body>
+</html>

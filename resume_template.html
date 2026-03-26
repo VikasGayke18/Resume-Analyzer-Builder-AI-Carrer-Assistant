@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Preview</title>
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 40px;
+    color: #222;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.profile {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.name {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.role {
+    color: gray;
+}
+
+.links a {
+    text-decoration: none;
+    color: #0073b1;
+    margin-right: 10px;
+}
+
+.section {
+    margin-top: 20px;
+}
+
+.section h3 {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 4px;
+}
+
+.profile {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;   /*  MAKES IT ROUND */
+    object-fit: cover;    /*  PREVENT STRETCH */
+}
+
+ul {
+    margin: 5px 0;
+}
+
+li {
+    margin-bottom: 4px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    {% if photo %}
+    <img src="file:///{{ photo }}" class="profile">
+
+    {% endif %}
+
+    <div>
+        <div class="name">{{ name }}</div>
+        <div class="role">{{ role }}</div>
+
+        <div class="links">
+            <a href="mailto:{{ email }}">{{ email }}</a>
+            | <a href="tel:{{ phone }}">{{ phone }}</a>
+            | <a href="{{ linkedin }}">LinkedIn</a>
+            | <a href="{{ github }}">GitHub</a>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h3>Professional Summary</h3>
+    <p>{{summary }}</p>
+</div>
+
+<div class="section">
+    <h3>Skills</h3>
+    <ul>
+        {% for skill in skills %}
+        <li>{{ skill }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="section">
+    <h3>Experience</h3>
+    <ul>
+        {% for exp in experience %}
+        <li>{{ exp }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="section">
+    <h3>Projects</h3>
+
+    {% for p in projects %}
+    <p><b>{{ p.title }}</b> - {{ p.date }}</p>
+    <ul>
+        {% for point in p.info %}
+        <li>{{ point }}</li>
+        {% endfor %}
+    </ul>
+    {% endfor %}
+
+</div>
+
+<div class="section">
+    <h3>Education</h3>
+    <p>{{ education }}</p>
+</div>
+
+<div class="section">
+    <h3>Certifications</h3>
+    <p>{{ certs }}</p>
+</div>
+
+</body>
+</html>
